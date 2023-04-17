@@ -218,7 +218,7 @@ agg_data <- function(paths, drug_key_df) {
         path <- paths[[i]]
         filename <- basename(path)
 
-        message(glue("Tidying '{filename}' [{i}/{file_no}]"))
+        message(glue("Tidying '{filename}'\t[{i}/{file_no}]"))
         # Get cells and partition them
         cells <- meltr::melt_csv(path) %>%
             filter(data_type != "missing")
