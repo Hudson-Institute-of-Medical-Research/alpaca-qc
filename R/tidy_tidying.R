@@ -50,7 +50,7 @@ tidy_metadata <- function(metadata_cells, settings_cells, filename) {
     # Using regex
     metadata_match <- metadata_str %>%
         str_match(re_pattern) %>%
-        as_tibble(.name_repair = "minimal") %>%
+        tibble::as_tibble(.name_repair = "minimal") %>%
         select(-1)
     # As storing run information in a filename or id name is brittle, try to
     # catch incorrect ID name patterns and throw error
