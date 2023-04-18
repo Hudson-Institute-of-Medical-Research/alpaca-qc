@@ -3,6 +3,8 @@ Ajith
 alpacaqc
 aut
 cre
+csv
+CSVs
 dplyr
 hudson
 lubridate
@@ -13,6 +15,7 @@ purrr
 Roxygen
 RoxygenNote
 stringr
+tibbles
 tidyr
 unpivotr
 vikesh

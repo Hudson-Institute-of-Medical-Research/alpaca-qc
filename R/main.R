@@ -1,8 +1,21 @@
 # Main Functions ----------------------------------------------------------
 
-# Function that loops through csv paths, tidies experimental data and metadata,
-# adds drug information to data, and aggregates all data in a list of
-# experimental data and metadata
+#' Aggregates plate reader .CSVs and annotates wells with drug data.
+#'
+#' loops through csv paths, tidies experimental data and metadata,
+#' adds drug information to data, and aggregates all data in a list of
+#' experimental data and metadata
+#'
+#' @param paths string vector of paths to csv files.
+#' @param drug_key_df dataframe of well information corresponding to drug info.
+#'
+#' @return A list with $data and $metadata tibbles.
+#' @export
+#'
+#' @examples
+#' paths <- Sys.glob("data/raw_id_corrected/*.CSV")
+#' drug_key_df <- readr::read_csv("data/config/drug_well_key_complete.csv")
+#' test <- agg_data(paths, drug_key_df)
 agg_data <- function(paths, drug_key_df) {
     metadata_list <- list()
     data_list <- list()
