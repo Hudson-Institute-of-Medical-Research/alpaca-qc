@@ -12,9 +12,11 @@ meltr
 ORCID
 org
 purrr
+readr
 Roxygen
 RoxygenNote
 stringr
+tibble
 tibbles
 tidyr
 unpivotr

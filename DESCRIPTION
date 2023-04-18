@@ -10,11 +10,13 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports:
-    dplyr,
-    stringr,
-    tidyr,
-    unpivotr,
-    meltr,
-    lubridate,
-    purrr,
-    glue
+    dplyr (>= 1.1.1),
+    stringr (>= 1.5.0),
+    tidyr (>= 1.3.0),
+    unpivotr (>= 0.6.3),
+    meltr (>= 1.0.1),
+    lubridate (>= 1.9.2),
+    purrr (>= 1.0.1),
+    glue (>= 1.6.2),
+    tibble,
+    readr
