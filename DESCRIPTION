@@ -9,3 +9,12 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Imports:
+    dplyr,
+    stringr,
+    tidyr,
+    unpivotr,
+    meltr,
+    lubridate,
+    purrr,
+    glue

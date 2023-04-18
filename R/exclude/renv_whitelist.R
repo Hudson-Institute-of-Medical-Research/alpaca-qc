@@ -1,0 +1,9 @@
+suppressWarnings({
+    library(styler)
+    library(rmarkdown)
+    library(markdown)
+    library(precommit)
+    library(reticulate)
+    library(miniUI)
+    library(devtools)
+})

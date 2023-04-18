@@ -1,4 +1,6 @@
-drug_well_df <- read_csv("data/config/drug_well_key.csv")
+library(readxl)
+
+drug_well_df <- readr::read_csv("data/config/drug_well_key.csv")
 drug_metadata_df <- readxl::read_excel(
     "data/config/L2000-Z601881-200uL_reorganisedwithNC_07112022.xlsx",
     sheet = "Final compound list"
@@ -17,4 +19,4 @@ drug_well_df %>%
     mutate(catalog_no = coalesce(catalog_no.x, catalog_no.y)) %>%
     relocate(catalog_no, cas_no, .after = plate_col) %>%
     select(-c(catalog_no.x, catalog_no.y)) %>%
-    write_csv("data/config/drug_well_key_joined.csv")
+    readr::write_csv("data/config/drug_well_key_joined.csv")
