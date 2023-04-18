@@ -4,6 +4,7 @@
 # This is done rather than relying on line numbers as CRLF breaks double file
 # length (possible bug?) and so may result in different values in linux/windows
 # systems
+#' @noRd
 split_cells <- function(cells) {
     # Get cells that match corners
     corners <- cells %>%
