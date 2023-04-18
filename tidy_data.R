@@ -1,3 +1,5 @@
+library(readr)
+
 source("src/functions.R")
 
 paths <- Sys.glob("data/raw_id_corrected/*.CSV")

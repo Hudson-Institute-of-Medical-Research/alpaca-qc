@@ -1,3 +1,11 @@
+library(unpivotr)
+library(dplyr)
+library(meltr)
+library(stringr)
+library(tidyr)
+library(lubridate)
+library(purrr)
+library(glue)
 # Splits spreadsheet cells into partitions based on corner sentinel values
 
 # This is done rather than relying on line numbers as CRLF breaks double file
@@ -220,7 +228,7 @@ agg_data <- function(paths, drug_key_df) {
 
         message(glue("Tidying '{filename}'\t[{i}/{file_no}]"))
         # Get cells and partition them
-        cells <- meltr::melt_csv(path) %>%
+        cells <- melt_csv(path) %>%
             filter(data_type != "missing")
         partitions <- split_cells(cells)
         # Get tidied metadata
