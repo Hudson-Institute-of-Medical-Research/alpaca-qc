@@ -8,3 +8,4 @@
 ^data/raw$
 ^data/raw_id_corrected$
 ^R/exclude$
+^scratch\.Rmd$
