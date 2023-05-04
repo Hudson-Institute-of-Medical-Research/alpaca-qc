@@ -1,9 +1,11 @@
 ajith
 Ajith
 alpacaqc
+annot
 aut
 cas
 CAS
+cli
 cre
 csv
 CSVs
@@ -19,6 +21,7 @@ PURO
 purrr
 readr
 regex
+rlang
 Roxygen
 RoxygenNote
 seq

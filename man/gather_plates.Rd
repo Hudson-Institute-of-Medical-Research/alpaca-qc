@@ -18,6 +18,8 @@ loops through csv paths, extracts experimental data, and extracts metadata
 using regex.
 }
 \examples{
+\dontrun{
 result_paths <- Sys.glob("data/raw_id_corrected/*.CSV")
-test <- gather_plates(result_paths)
+batch <- gather_plates(result_paths)
+}
 }

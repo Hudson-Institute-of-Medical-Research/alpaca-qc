@@ -16,13 +16,14 @@ mandatory except for \code{catalog_no} as the rest of the information is needed
 for joining or used as downstream metadata.}
 }
 \value{
-A tibble
+tibble
 }
 \description{
 Tidy plate data produced by \code{gather_plates()} is joined to drug_key metadata
 based on the combination of 'plate', \code{plate_row}, and \code{plate_col}.
 }
 \examples{
+\dontrun{
 # Get inputs
 result_paths <- Sys.glob("data/raw_id_corrected/*.CSV")
 drug_key_df <- readr::read_csv("data/config/drug_well_key_complete.csv")
@@ -30,4 +31,5 @@ drug_key_df <- readr::read_csv("data/config/drug_well_key_complete.csv")
 # Process data
 batch_data <- gather_plates(result_paths)
 annot_data <- add_drug_annot(batch_data$tidy_data, drug_key_df)
+}
 }
