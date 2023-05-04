@@ -1,0 +1,36 @@
+
+rules:
+- expr: is_unique(plate, plate_row, plate_col)
+  name: 'check_unique_wells'
+  label: 'Prevent well position collision'
+  description: >
+    The combination of [plate, plate_row, plate_col] should be unique for
+    it to be correctly identified to a unique drug.
+
+- expr: plate_row %in% LETTERS[seq(from = 1, to = 16)]
+  name: 'check_row_range'
+  label: 'Ensure row range falls between A - P (16 rows)'
+  description: >
+    'plate_row' should fall within the letter range of an 384 well
+    plate (A - P).
+
+- expr: in_range(plate_col, 1, 24)
+  name: 'check_col_range'
+  label: 'Ensure column range falls between 1 - 24'
+  description: >
+    'plate_col' range should fall within the column range of a 384 well
+    plate (1 - 24).
+
+- expr: is_complete(plate, plate_row, plate_col, drug_name)
+  name: 'mandatory_fields'
+  label: 'Ensure that all necessary values are complete in key.'
+  description: >
+    [plate, plate_row, plate_col, drug_name] should not contain missing
+    values.
+
+- expr: if (!(drug_name %in% c("PURO", "PBS"))) is_complete(cas_no)
+  name: 'complete_cas_no'
+  label: 'Ensure all drugs have CAS numbers'
+  description: >
+    All drugs (except 'PURO'/'PBS') must have complete cas_no. This is
+    because it is used downstream for database purposes.

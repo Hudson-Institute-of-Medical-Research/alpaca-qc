@@ -31,7 +31,7 @@ validate_csv_paths <- function(paths) {
 validate_drug_key <- function(drug_key_df, path_name) {
     tryCatch(
         {
-            rules <- validator(.file = "data/config/drug_key_rules.yaml")
+            rules <- validator(.file = "rules/drug_key_rules.yaml")
 
             out <- confront(drug_key_df, rules)
             any_fails <- summary(out)$fails %>% sum() > 0
