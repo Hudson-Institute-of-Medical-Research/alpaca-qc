@@ -39,9 +39,9 @@ validate_drug_key <- function(drug_key_df, path_name) {
         },
         error = function(c) {
             rules_violated <- summary(out) %>%
-                filter(fails > 0) %>%
+                filter(.data$fails > 0) %>%
                 left_join(meta(rules), by = "name") %>%
-                select(name:description)
+                select(.data$name:.data$description)
 
             entry_violations <- violating(drug_key_df, out)
 

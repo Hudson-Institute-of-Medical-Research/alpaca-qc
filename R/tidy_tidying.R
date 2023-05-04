@@ -6,14 +6,14 @@ tidy_metadata <- function(metadata_cells, settings_cells, filename) {
     setting_df <- settings_cells %>%
         filter(
             # Remove partition header
-            !str_detect(value, "settings")
+            !str_detect(.data$value, "settings")
         ) %>%
-        unpivotr::behead("left", setting, value) %>%
-        select(setting, value) %>%
+        unpivotr::behead("left", .data$setting, .data$value) %>%
+        select(.data$setting, .data$value) %>%
         # Pivot wider to switch setting row values to columns
         tidyr::pivot_wider(
-            names_from = setting,
-            values_from = value
+            names_from = .data$setting,
+            values_from = .data$value
         ) %>%
         # Clean up column names to lowercase, no spaces, with colons, brackets,
         # and dots removed
@@ -24,17 +24,17 @@ tidy_metadata <- function(metadata_cells, settings_cells, filename) {
         )
     # Pull test_run_no with regex
     test_run_no <- metadata_cells %>%
-        filter(str_detect(value, "Test run no.:")) %>%
-        pull(value) %>%
+        filter(str_detect(.data$value, "Test run no.:")) %>%
+        pull(.data$value) %>%
         str_extract(r"(\d+)")
     # Pull date and time strings
     date_str <- metadata_cells %>%
-        filter(str_detect(value, "Date:")) %>%
-        pull(value)
+        filter(str_detect(.data$value, "Date:")) %>%
+        pull(.data$value)
 
     time_str <- metadata_cells %>%
-        filter(str_detect(value, "Time:")) %>%
-        pull(value)
+        filter(str_detect(.data$value, "Time:")) %>%
+        pull(.data$value)
     # Use lubridate to get datetime
     datetime <- lubridate::dmy_hms(
         paste(date_str, time_str),
@@ -42,8 +42,8 @@ tidy_metadata <- function(metadata_cells, settings_cells, filename) {
     )
 
     metadata_str <- metadata_cells %>%
-        filter(str_detect(value, "ID1:")) %>%
-        pull(value)
+        filter(str_detect(.data$value, "ID1:")) %>%
+        pull(.data$value)
 
     re_pattern <- r"(ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))"
     # Extract run sample, media, concentration, plate number, and replicate
@@ -78,35 +78,35 @@ tidy_metadata <- function(metadata_cells, settings_cells, filename) {
     # Add datetime, run_no, and filename to growing metadata row
     metadata_df <- metadata_match %>%
         tibble::add_column(datetime, test_run_no, filename) %>%
-        rename(conc_nm = conc)
+        rename(conc_nm = .data$conc)
     # Bind both settings and metadata tables, converting string columns to
     # numeric
     metadata_df <- bind_cols(metadata_df, setting_df) %>%
         mutate(
             across(
                 c(
-                    conc_nm,
-                    plate,
-                    rep,
-                    test_run_no,
-                    no_of_flashes_per_well,
-                    gain,
-                    focal_height_mm
+                    .data$conc_nm,
+                    .data$plate,
+                    .data$rep,
+                    .data$test_run_no,
+                    .data$no_of_flashes_per_well,
+                    .data$gain,
+                    .data$focal_height_mm
                 ),
                 as.numeric
             )
         ) %>%
         relocate(
-            filename,
-            test_run_no,
-            datetime,
-            sample,
-            rep,
-            plate,
-            conc_nm
+            .data$filename,
+            .data$test_run_no,
+            .data$datetime,
+            .data$sample,
+            .data$rep,
+            .data$plate,
+            .data$conc_nm
         ) %>%
         # Drop irrelevant information
-        select(-c(measurement_type, microplate_name))
+        select(-c(.data$measurement_type, .data$microplate_name))
 
     return(metadata_df)
 }
@@ -115,36 +115,36 @@ tidy_metadata <- function(metadata_cells, settings_cells, filename) {
 tidy_data <- function(data_cells, metadata_df) {
     # Use unpivotr to behead columns
     data_df <- data_cells %>%
-        filter(!(value %in% c("Well", "Content", "Raw Data (545-10/590-20)"))) %>%
-        unpivotr::behead("left", well, value) %>%
+        filter(!(.data$value %in% c("Well", "Content", "Raw Data (545-10/590-20)"))) %>%
+        unpivotr::behead("left", .data$well, .data$value) %>%
         # [TODO] Possibly unnecessary to take content column as in contains no useful
         # information? It's later dropped
-        unpivotr::behead("left", content, value) %>%
-        select(value, well) %>%
+        unpivotr::behead("left", .data$content, .data$value) %>%
+        select(.data$value, .data$well) %>%
         # Separate row and column information as it is more useful in separated
         # form
         tidyr::separate_wider_regex(
-            cols = well,
+            cols = .data$well,
             patterns = c(
                 plate_row = r"([A-Z]+)",
                 plate_col = r"(\d+)"
             )
         ) %>%
         # Convert to numeric as some cols are numbered '01-09'
-        mutate(plate_col = as.numeric(plate_col)) %>%
+        mutate(plate_col = as.numeric(.data$plate_col)) %>%
         # Rename to indicate values are fluorescence
-        rename(fluor = value)
+        rename(fluor = .data$value)
     # Bind some metadata to data table for usability, but not necessary in final
     # SQL database (just join with metadata)
     data_df <- bind_cols(
-        metadata_df %>% select(test_run_no:conc_nm),
+        metadata_df %>% select(.data$test_run_no:.data$conc_nm),
         data_df
     ) %>%
         # Keep location information together
         relocate(
-            plate_row,
-            plate_col,
-            .after = plate
+            .data$plate_row,
+            .data$plate_col,
+            .after = .data$plate
         )
 
     return(data_df)

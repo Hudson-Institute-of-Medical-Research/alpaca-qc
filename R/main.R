@@ -32,7 +32,7 @@ gather_plates <- function(result_paths) {
         message(glue("Tidying '{filename}'\t[{i}/{file_no}]"))
         # Get cells and partition them
         cells <- meltr::melt_csv(path) %>%
-            filter(data_type != "missing")
+            filter(.data$data_type != "missing")
         partitions <- split_cells(cells)
         # Get tidied metadata
         metadata_df <- tidy_metadata(
@@ -48,16 +48,16 @@ gather_plates <- function(result_paths) {
     }
     # Bind data together
     tidy_metadata_df <- bind_rows(metadata_list) %>%
-        arrange(test_run_no)
+        arrange(.data$test_run_no)
 
     tidy_data_df <- bind_rows(data_list) %>%
         arrange(
-            test_run_no,
-            sample,
-            rep,
-            plate,
-            plate_row,
-            plate_col
+            .data$test_run_no,
+            .data$sample,
+            .data$rep,
+            .data$plate,
+            .data$plate_row,
+            .data$plate_col
         )
     # Return as list
     batch_data <- list(
@@ -100,7 +100,7 @@ import_drug_key <- function(drug_key_path) {
         )
     ) %>%
         # Ensure plate_row is all uppercase downstream
-        mutate(plate_row = str_to_upper(plate_row))
+        mutate(plate_row = str_to_upper(.data$plate_row))
 
     validate_drug_key(drug_key_df, drug_key_path)
 
@@ -139,7 +139,7 @@ add_drug_annot <- function(tidy_data_df, drug_key_df) {
             # Which drug is in which well.
             by = c("plate", "plate_row", "plate_col")
         ) %>%
-        relocate(catalog_no:drug_name, .after = plate_col)
+        relocate(.data$catalog_no:.data$drug_name, .after = .data$plate_col)
 
     return(annot_data_df)
 }
