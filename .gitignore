@@ -1,5 +1,6 @@
 # Data Files
 data/*
+tests/data/*
 
 # Scratch files
 scratch*
