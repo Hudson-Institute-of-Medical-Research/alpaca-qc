@@ -15,6 +15,10 @@ Unassigned (replace all with desired value):
 
 [![GitHub Stars](https://img.shields.io/github/stars/Hudson-Institute-of-Medical-Research/alpaca-qc.svg)](https://github.com/Hudson-Institute-of-Medical-Research/alpaca-qc/stargazers) [![GitHub Issues](https://img.shields.io/github/issues/Hudson-Institute-of-Medical-Research/alpaca-qc.svg)](https://github.com/Hudson-Institute-of-Medical-Research/alpaca-qc/issues) [![Tag](https://img.shields.io/github/v/tag/Hudson-Institute-of-Medical-Research/alpaca-qc)](https://github.com/Hudson-Institute-of-Medical-Research/alpaca-qc) [![License](https://img.shields.io/github/license/Hudson-Institute-of-Medical-Research/alpaca-qc)](https://github.com/Hudson-Institute-of-Medical-Research/alpaca-qc/blob/master/LICENSE)
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Hudson-Institute-of-Medical-Research/alpaca-qc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Hudson-Institute-of-Medical-Research/alpaca-qc/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 A package for tidying plate reader data and adding drug annotation information
 from ALPACA (Australian Library of Paediatric Anti-Cancer Agents) drug
 libraries.

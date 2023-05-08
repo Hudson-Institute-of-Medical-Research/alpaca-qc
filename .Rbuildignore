@@ -8,3 +8,4 @@
 ^scratch\.Rmd$
 ^tests/data$
 ^data$
+^\.github$
