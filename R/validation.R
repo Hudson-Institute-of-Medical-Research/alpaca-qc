@@ -31,7 +31,7 @@ validate_csv_paths <- function(paths) {
 validate_drug_key <- function(drug_key_df, path_name) {
     tryCatch(
         {
-            rules <- validator(.file = "rules/drug_key_rules.yaml")
+            rules <- validator(.file = "tests/rules/drug_key_rules.yaml")
 
             out <- confront(drug_key_df, rules)
             any_fails <- summary(out)$fails %>% sum() > 0
@@ -52,7 +52,7 @@ validate_drug_key <- function(drug_key_df, path_name) {
                 No. of Rows Failed\t: {nrow(entry_violations)}
 
                 '{basename(path_name)}' fails to meet all rules for a valid \\
-                drug key. Please collect the violating entries in the tables \\
+                drug key. Please correct the violating entries in the tables \\
                 below.
                 "
             )
