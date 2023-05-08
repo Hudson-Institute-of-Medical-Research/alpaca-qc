@@ -51,21 +51,40 @@ information to the results.
 - Annotates `tidy_data` with drug information from `drug_key` based on well
   position.
 
-# Setup
+## Quick Start
 
-1. Install `devtools`
+1. Install `devtools` and `alpacaqc`:
 
     ```R
     install.packages("devtools")
-    ```
-
-2. Install `alpacaqc`
-
-    ```R
     devtools::install_github("Hudson-Institute-of-Medical-Research/alpaca-qc")
     ```
 
+2. Gather and tidy data:
+
+    ```R
+    # Get experimental data csv using glob pattern
+    result_paths <- Sys.glob("data/sample/*.CSV")
+    # Get and validate drug key
+    drug_key_df <- import_drug_key("data/config/drug_well_key.csv")
+
+    # Tidy data
+    batch_data <- gather_plates(result_paths)
+    ```
+
+3. Annotate data with drug metadata and save:
+
+    ```R
+    # Annotate
+    annot_data <- add_drug_annot(batch_data$tidy_data, drug_key_df)
+    # Save
+    readr::write_csv(annot_data, "tidy_data.csv")
+    readr::write_csv(batch_data$tidy_metadata, "tidy_metadata.csv")
+    ```
+
 ## Usage
+
+### Drug Key Design
 
 1. Design a drug_key `.csv` with the following field information:
     1. **`[plate]`:** An `integer` corresponding to a particular drug layout on a
@@ -90,6 +109,8 @@ information to the results.
     | 1     | A         | 5         | XXXXX      | XXXXXX-XX-3 | drug_c    |
     | ...   | ...       | ...       | ...        | ...         | ...       |
 
+### ID Names
+
 2. Read plates using the Clariostar. Export the data with the following ID
    string format:
 
@@ -103,6 +124,8 @@ information to the results.
     ```
     ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+)
     ```
+
+### Tidy Data
 
 3. Load `alpacaqc` in `R` and tidy the data:
 
@@ -134,6 +157,8 @@ information to the results.
     | ------------ | ----------- | -------------------- | ----------- | --- | ----- | ------- | ----- | ---------------------- | ----------- | ---------- | --------------- | -------- | ---- | ------------------------------ | --------------- |
     | filename.CSV | 19344       | 2023-04-06T03:24:54Z | sample_name | 1   | 1     | 10      | DMSO  | 5                      | Alamar Blue | 545-10     | auto 565        | 590-20   | 1130 | C3                             | 3.9             |
     | ...          | ...         | ...                  | ...         | ... | ...   | ...     | ...   | ...                    | ...         | ...        | ...             | ...      | ...  | ...                            | ...             |
+
+### Annotate Data
 
 4. Annotate `batch_data$tidy_data` with drug information from `drug_key_df`
 
