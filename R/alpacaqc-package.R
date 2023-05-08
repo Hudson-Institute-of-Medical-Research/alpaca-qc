@@ -5,10 +5,8 @@
 #' @import checkmate
 #' @import cli
 #' @import dplyr
-#' @import lubridate
 #' @import stringr
 #' @import tidyr
-#' @import validate
 #' @importFrom glue glue
 #' @importFrom lubridate dmy_hms
 #' @importFrom meltr melt_csv
@@ -24,5 +22,10 @@
 #' @importFrom tidyr separate_wider_regex
 #' @importFrom unpivotr behead
 #' @importFrom unpivotr partition
+#' @importFrom validate confront
+#' @importFrom validate meta
+#' @importFrom validate summary
+#' @importFrom validate validator
+#' @importFrom validate violating
 ## usethis namespace: end
 NULL
