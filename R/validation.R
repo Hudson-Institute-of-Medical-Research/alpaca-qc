@@ -58,8 +58,6 @@ validate_drug_key <- function(drug_key_df, path_name) {
             )
 
             c$message <- msg
-
-            plot(out)
             print(rules_violated)
             print(entry_violations)
 
