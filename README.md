@@ -1,4 +1,3 @@
-```{=html}
 <!--
 Document variables:
 
@@ -11,7 +10,6 @@ Unassigned (replace all with desired value):
 <screenshot_link>
 
 -->
-```
 
 # `alpaca-qc`
 
