@@ -61,7 +61,7 @@ tidy_metadata <- function(metadata_cells, settings_cells, filename) {
             stopifnot(nrow(test) == 0)
         },
         error = function(c) {
-            msg <- glue(
+            msg <- glue::glue(
                 "The following ID string does not match the regex pattern:
 
                     str: {metadata_str}

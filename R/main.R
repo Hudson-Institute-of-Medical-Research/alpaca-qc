@@ -29,7 +29,7 @@ gather_plates <- function(result_paths) {
         path <- result_paths[[i]]
         filename <- basename(path)
 
-        message(glue("Tidying '{filename}'\t[{i}/{file_no}]"))
+        message(glue::glue("Tidying '{filename}'\t[{i}/{file_no}]"))
         # Get cells and partition them
         cells <- meltr::melt_csv(path) %>%
             filter(.data$data_type != "missing")
@@ -88,15 +88,15 @@ gather_plates <- function(result_paths) {
 #' drug_key_df <- import_drug_key("data/config/drug_well_key_complete.csv")
 #' }
 import_drug_key <- function(drug_key_path) {
-    drug_key_df <- read_csv(
+    drug_key_df <- readr::read_csv(
         drug_key_path,
-        col_types = cols(
-            plate = col_integer(),
-            plate_col = col_integer(),
-            plate_row = col_character(),
-            catalog_no = col_character(),
-            cas_no = col_character(),
-            drug_name = col_character()
+        col_types = readr::cols(
+            plate = readr::col_integer(),
+            plate_col = readr::col_integer(),
+            plate_row = readr::col_character(),
+            catalog_no = readr::col_character(),
+            cas_no = readr::col_character(),
+            drug_name = readr::col_character()
         )
     ) %>%
         # Ensure plate_row is all uppercase downstream

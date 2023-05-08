@@ -31,21 +31,21 @@ validate_csv_paths <- function(paths) {
 validate_drug_key <- function(drug_key_df, path_name) {
     tryCatch(
         {
-            rules <- validator(.file = "tests/rules/drug_key_rules.yaml")
+            rules <- validate::validator(.file = "tests/rules/drug_key_rules.yaml")
 
-            out <- confront(drug_key_df, rules)
-            any_fails <- summary(out)$fails %>% sum() > 0
+            out <- validate::confront(drug_key_df, rules)
+            any_fails <- validate::summary(out)$fails %>% sum() > 0
             stopifnot(!any_fails)
         },
         error = function(c) {
-            rules_violated <- summary(out) %>%
+            rules_violated <- validate::summary(out) %>%
                 filter(.data$fails > 0) %>%
-                left_join(meta(rules), by = "name") %>%
+                left_join(validate::meta(rules), by = "name") %>%
                 select(.data$name:.data$description)
 
-            entry_violations <- violating(drug_key_df, out)
+            entry_violations <- validate::violating(drug_key_df, out)
 
-            msg <- glue(
+            msg <- glue::glue(
                 "
                 Drug Key: {path_name}
                 No. of Rules Failed\t: {nrow(rules_violated)}
