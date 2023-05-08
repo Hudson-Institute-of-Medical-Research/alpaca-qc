@@ -8,7 +8,7 @@ tidy_metadata <- function(metadata_cells, settings_cells, filename) {
             # Remove partition header
             !str_detect(.data$value, "settings")
         ) %>%
-        unpivotr::behead("left", .data$setting, .data$value) %>%
+        unpivotr::behead("left", "setting", "value") %>%
         select(.data$setting, .data$value) %>%
         # Pivot wider to switch setting row values to columns
         tidyr::pivot_wider(
@@ -116,10 +116,10 @@ tidy_data <- function(data_cells, metadata_df) {
     # Use unpivotr to behead columns
     data_df <- data_cells %>%
         filter(!(.data$value %in% c("Well", "Content", "Raw Data (545-10/590-20)"))) %>%
-        unpivotr::behead("left", .data$well, .data$value) %>%
+        unpivotr::behead("left", "well", "value") %>%
         # [TODO] Possibly unnecessary to take content column as in contains no useful
         # information? It's later dropped
-        unpivotr::behead("left", .data$content, .data$value) %>%
+        unpivotr::behead("left", "content", "value") %>%
         select(.data$value, .data$well) %>%
         # Separate row and column information as it is more useful in separated
         # form
