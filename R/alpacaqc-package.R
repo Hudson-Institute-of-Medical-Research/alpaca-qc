@@ -3,7 +3,6 @@
 
 ## usethis namespace: start
 #' @import checkmate
-#' @import cli
 #' @import dplyr
 #' @import stringr
 #' @import tidyr

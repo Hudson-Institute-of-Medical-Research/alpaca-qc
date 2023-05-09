@@ -1,10 +1,17 @@
 Package: alpacaqc
 Title: ALPACA QC
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
-    person("Vikesh", "Ajith", , "vikesh.ajith@hudson.org.au", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person(
+        given = "Vikesh",
+        family = "Ajith",
+        email = "vikesh.ajith@hudson.org.au",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "YOUR-ORCID-ID")
+    )
+Description: A package for tidying plate reader data and adding drug annotation
+    information from ALPACA (Australian Library of Paediatric Anti-Cancer Agents)
+    drug libraries.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -18,9 +25,8 @@ Imports:
     lubridate (>= 1.9.2),
     purrr (>= 1.0.1),
     glue (>= 1.6.2),
-    tibble,
-    readr,
-    checkmate,
-    validate,
-    cli,
-    rlang
+    tibble (>= 3.2.1),
+    readr (>= 2.1.4),
+    checkmate (>= 2.2.0),
+    validate (>= 1.1.3),
+    rlang (>= 1.1.1)

@@ -6,7 +6,7 @@
 \alias{alpacaqc-package}
 \title{alpacaqc: ALPACA QC}
 \description{
-What the package does (one paragraph).
+A package for tidying plate reader data and adding drug annotation information from ALPACA (Australian Library of Paediatric Anti-Cancer Agents) drug libraries.
 }
 \author{
 \strong{Maintainer}: Vikesh Ajith \email{vikesh.ajith@hudson.org.au} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
