@@ -111,19 +111,32 @@ information to the results.
 
 ### ID Names
 
-2. Read plates using the Clariostar. Export the data with the following ID
-   string format:
+2. Read plates using the Clariostar. Export the data with the following default
+   ID string format:
 
     ```
     <sample_name> <media> <concentration>nM P<plate>R<rep>
     ```
 
     This format is important as metadata is parsed from the ID string using the
-    following `regex` expression:
+    following default `regex` expression:
 
+    ```R
+    r"(ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))"
     ```
-    ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+)
+
+    Alternatively, a custom
+    [regex](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
+    pattern can be supplied using the `id_regex` argument to `gather_plates()`:
+
+    ```R
+    batch_data <- gather_plates(
+        result_paths,
+        id_regex = r"(ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))"
+    )
     ```
+    Ensure that the custom regex pattern has capturing groups for `[sample,
+    media, conc, plate, rep]`
 
 ### Tidy Data
 

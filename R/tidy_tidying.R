@@ -1,7 +1,10 @@
 # Tidying Functions -------------------------------------------------------
 
 # Function that uses unpivotr and regex to parse out run metadata in long format
-tidy_metadata <- function(metadata_cells, settings_cells, filename) {
+tidy_metadata <- function(metadata_cells,
+                          settings_cells,
+                          filename,
+                          id_regex) {
     # Clean up settings cells partition using unpivotr
     setting_df <- settings_cells %>%
         filter(
@@ -45,7 +48,7 @@ tidy_metadata <- function(metadata_cells, settings_cells, filename) {
         filter(str_detect(.data$value, "ID1:")) %>%
         pull(.data$value)
 
-    re_pattern <- r"(ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))"
+    re_pattern <- id_regex
     # Extract run sample, media, concentration, plate number, and replicate
     # Using regex
     metadata_match <- metadata_str %>%

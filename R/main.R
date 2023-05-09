@@ -16,7 +16,8 @@
 #' result_paths <- Sys.glob("data/raw_id_corrected/*.CSV")
 #' batch <- gather_plates(result_paths)
 #' }
-gather_plates <- function(result_paths) {
+gather_plates <- function(result_paths,
+                          id_regex = r"(ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))") {
     # Check if paths are valid csv's before processing data.
     validate_csv_paths(result_paths)
 
@@ -38,7 +39,8 @@ gather_plates <- function(result_paths) {
         metadata_df <- tidy_metadata(
             partitions$metadata,
             partitions$settings,
-            filename
+            filename,
+            id_regex
         )
         # Get tidied experimental data
         data_df <- tidy_data(partitions$data, metadata_df)
