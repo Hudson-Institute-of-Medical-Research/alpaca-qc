@@ -140,7 +140,7 @@ tidy_data <- function(data_cells, metadata_df) {
     # Bind some metadata to data table for usability, but not necessary in final
     # SQL database (just join with metadata)
     data_df <- bind_cols(
-        metadata_df %>% select(.data$test_run_no:.data$conc_nm),
+        metadata_df %>% select(.data$test_run_no:.data$media),
         data_df
     ) %>%
         # Keep location information together
