@@ -143,11 +143,16 @@ tidy_data <- function(data_cells, metadata_df) {
         metadata_df %>% select(.data$test_run_no:.data$media),
         data_df
     ) %>%
-        # Keep location information together
+        # Organise info by logical grouping
         relocate(
+            .data$test_run_no:.data$sample,
+            .data$media,
+            .data$conc_nm,
+            .data$rep,
+            .data$plate,
             .data$plate_row,
             .data$plate_col,
-            .after = .data$plate
+            .data$fluor
         )
 
     return(data_df)
