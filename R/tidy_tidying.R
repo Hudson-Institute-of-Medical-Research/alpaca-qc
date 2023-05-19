@@ -80,8 +80,7 @@ tidy_metadata <- function(metadata_cells,
     )
     # Add datetime, run_no, and filename to growing metadata row
     metadata_df <- metadata_match %>%
-        tibble::add_column(datetime, test_run_no, filename) %>%
-        rename(conc_nm = .data$conc)
+        tibble::add_column(datetime, test_run_no, filename)
     # Bind both settings and metadata tables, converting string columns to
     # numeric
     metadata_df <- bind_cols(metadata_df, setting_df) %>%

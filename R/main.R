@@ -8,6 +8,8 @@
 #' @param result_paths string vector of paths to csv files output by plate
 #'   readers in a standard human-readable format.
 #'
+#' @param id_regex regular expression that parses `sample`, `treatment`, `conc_nm`
+#'
 #' @return A list with $tidy_data and $tidy_metadata tibbles.
 #' @export
 #'
@@ -17,7 +19,7 @@
 #' batch <- gather_plates(result_paths)
 #' }
 gather_plates <- function(result_paths,
-                          id_regex = r"(ID1: (?<sample>\w+) (?<treatment>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))") {
+                          id_regex = r"(ID1: (?<sample>\w+) (?<treatment>\w+) (?<conc_nm>\d+)nM P(?<plate>\d)R(?<rep>\d+))") {
     # Check if paths are valid csv's before processing data.
     validate_csv_paths(result_paths)
 
