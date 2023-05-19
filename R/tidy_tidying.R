@@ -49,7 +49,7 @@ tidy_metadata <- function(metadata_cells,
         pull(.data$value)
 
     re_pattern <- id_regex
-    # Extract run sample, media, concentration, plate number, and replicate
+    # Extract run sample, treatment, concentration, plate number, and replicate
     # Using regex
     metadata_match <- metadata_str %>%
         str_match(re_pattern) %>%
@@ -140,13 +140,13 @@ tidy_data <- function(data_cells, metadata_df) {
     # Bind some metadata to data table for usability, but not necessary in final
     # SQL database (just join with metadata)
     data_df <- bind_cols(
-        metadata_df %>% select(.data$test_run_no:.data$media),
+        metadata_df %>% select(.data$test_run_no:.data$treatment),
         data_df
     ) %>%
         # Organise info by logical grouping
         relocate(
             .data$test_run_no:.data$sample,
-            .data$media,
+            .data$treatment,
             .data$conc_nm,
             .data$rep,
             .data$plate,

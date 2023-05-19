@@ -17,7 +17,7 @@
 #' batch <- gather_plates(result_paths)
 #' }
 gather_plates <- function(result_paths,
-                          id_regex = r"(ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))") {
+                          id_regex = r"(ID1: (?<sample>\w+) (?<treatment>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))") {
     # Check if paths are valid csv's before processing data.
     validate_csv_paths(result_paths)
 

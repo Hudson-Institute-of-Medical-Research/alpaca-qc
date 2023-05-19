@@ -115,14 +115,14 @@ information to the results.
    ID string format:
 
     ```
-    <sample_name> <media> <concentration>nM P<plate>R<rep>
+    <sample_name> <treatment> <concentration>nM P<plate>R<rep>
     ```
 
     This format is important as metadata is parsed from the ID string using the
     following default `regex` expression:
 
     ```R
-    r"(ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))"
+    r"(ID1: (?<sample>\w+) (?<treatment>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))"
     ```
 
     Alternatively, a custom
@@ -132,11 +132,11 @@ information to the results.
     ```R
     batch_data <- gather_plates(
         result_paths,
-        id_regex = r"(ID1: (?<sample>\w+) (?<media>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))"
+        id_regex = r"(ID1: (?<sample>\w+) (?<treatment>\w+) (?<conc>\d+)nM P(?<plate>\d)R(?<rep>\d+))"
     )
     ```
     Ensure that the custom regex pattern has capturing groups for `[sample,
-    media, conc, plate, rep]`
+    treatment, conc, plate, rep]`
 
 ### Tidy Data
 
@@ -166,7 +166,7 @@ information to the results.
 
     **`batch_data$tidy_metadata`**
 
-    | filename     | test_run_no | datetime             | sample      | rep | plate | conc_nm | media | no_of_flashes_per_well | presetname  | excitation | dichroic_filter | emission | gain | wells_used_for_gain_adjustment | focal_height_mm |
+    | filename     | test_run_no | datetime             | sample      | rep | plate | conc_nm | treatment | no_of_flashes_per_well | presetname  | excitation | dichroic_filter | emission | gain | wells_used_for_gain_adjustment | focal_height_mm |
     | ------------ | ----------- | -------------------- | ----------- | --- | ----- | ------- | ----- | ---------------------- | ----------- | ---------- | --------------- | -------- | ---- | ------------------------------ | --------------- |
     | filename.CSV | 19344       | 2023-04-06T03:24:54Z | sample_name | 1   | 1     | 10      | DMSO  | 5                      | Alamar Blue | 545-10     | auto 565        | 590-20   | 1130 | C3                             | 3.9             |
     | ...          | ...         | ...                  | ...         | ... | ...   | ...     | ...   | ...                    | ...         | ...        | ...             | ...      | ...  | ...                            | ...             |
