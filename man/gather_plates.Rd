@@ -4,7 +4,11 @@
 \alias{gather_plates}
 \title{Gathers plate reader csv data into tidied long-format.}
 \usage{
-gather_plates(result_paths)
+gather_plates(
+  result_paths,
+  id_regex =
+    "ID1: (?<sample>\\\\w+) (?<treatment>\\\\w+) (?<conc>\\\\d+)nM P(?<plate>\\\\d)R(?<rep>\\\\d+)"
+)
 }
 \arguments{
 \item{result_paths}{string vector of paths to csv files output by plate

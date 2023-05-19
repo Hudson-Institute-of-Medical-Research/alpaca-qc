@@ -1,5 +1,9 @@
 # Main Functions ----------------------------------------------------------
 
+theme_set(theme_minimal())
+
+# Tidying Functions -------------------------------------------------------
+
 #' Gathers plate reader csv data into tidied long-format.
 #'
 #' loops through csv paths, extracts experimental data, and extracts metadata
@@ -146,4 +150,55 @@ add_drug_annot <- function(tidy_data_df, drug_key_df) {
         relocate(.data$catalog_no:.data$drug_name, .after = .data$plate_col)
 
     return(annot_data_df)
+}
+
+# Visualisation Functions -------------------------------------------------
+
+#' Visualises plate data as a heatmap
+#'
+#' Visualises plate data as a heatmap faceted by `treatment`, `rep` `conc_nm`
+#' and `plate`
+#'
+#' @param tidy_data A tidied tibble produced by `gather_plates()$tidy_data` or
+#'   `add_drug_annot()`. Ideally filtered to a few specific plates of interest,
+#'   otherwise the output plot will be very large due to faceting.
+#' @param value A string corresponding to the heatmap measure of interest,
+#'   default `"fluor"`
+#'
+#' @return `ggplot()` object
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' annot_data %>%
+#'     filter(conc_nm == 10) %>%
+#'     plot_plate()
+#' }
+plate_heatmap <- function(tidy_data, value = "fluor") {
+    tidy_data %>%
+        mutate(
+            shape = case_match(
+                .data$drug_name,
+                "PURO" ~ 4,
+                "PBS" ~ 1,
+                .default = NA
+            )
+        ) %>%
+        ggplot(
+            aes(
+                as.factor(.data$plate_col),
+                forcats::fct_rev(as.factor(.data$plate_row))
+            )
+        ) +
+        geom_tile(aes(fill = !!sym(value))) +
+        geom_point(aes(shape = .data$shape)) +
+        facet_grid(
+            rows = vars(.data$treatment, .data$rep, .data$conc_nm),
+            cols = vars(.data$plate)
+        ) +
+        scale_shape_identity() +
+        scale_fill_distiller(palette = "Spectral") +
+        xlab("Plate Columns") +
+        ylab("Plate Rows") +
+        coord_fixed(ratio = 1)
 }

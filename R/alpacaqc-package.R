@@ -6,6 +6,7 @@
 #' @import dplyr
 #' @import stringr
 #' @import tidyr
+#' @import ggplot2
 #' @importFrom glue glue
 #' @importFrom lubridate dmy_hms
 #' @importFrom meltr melt_csv

@@ -19,6 +19,7 @@ DMSO
 dplyr
 expr
 fluor
+ggplot
 hudson
 lubridate
 meltr
