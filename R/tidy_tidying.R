@@ -134,7 +134,12 @@ tidy_data <- function(data_cells, metadata_df) {
             )
         ) %>%
         # Convert to numeric as some cols are numbered '01-09'
-        mutate(plate_col = as.numeric(.data$plate_col)) %>%
+        mutate(
+            across(
+                c(.data$plate_col, .data$value),
+                as.numeric
+            )
+        ) %>%
         # Rename to indicate values are fluorescence
         rename(fluor = .data$value)
     # Bind some metadata to data table for usability, but not necessary in final
